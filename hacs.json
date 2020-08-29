@@ -1,0 +1,6 @@
+{
+  "name": "Electric Vehicle Charge Control",
+  "country": "SK",
+  "domains": ["switch"],
+  "homeassistant": "0.110.0"
+}
