@@ -121,7 +121,8 @@ class EvChargeControl(object):
 
     async def set_charging_current(self, value):
         """Set the charging current"""
-        value = str(value)
+        # ensure string and strip optional suffix
+        value = str(value).strip(" A")
         if value in self.status.current_options:
             await self._get("/charge.html?current=" + value)
         else:

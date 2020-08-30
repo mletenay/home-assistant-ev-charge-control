@@ -1,10 +1,12 @@
 """Electric Vehicle Charge Control switch."""
+import voluptuous as vol
+
 from homeassistant.components.sensor import PLATFORM_SCHEMA
 from homeassistant.const import CONF_IP_ADDRESS
 from homeassistant.helpers import config_validation as cv, entity_platform
 from homeassistant.helpers.entity import ToggleEntity
+
 from .ev_charge_control import EvChargeControl
-import voluptuous as vol
 
 DOMAIN = "ev_charge_control"
 
@@ -26,7 +28,7 @@ async def async_setup_platform(hass, config, async_add_entities, discovery_info=
     platform = entity_platform.current_platform.get()
     platform.async_register_entity_service(
         SERVICE_SET_CHARGING_CURRENT,
-        {vol.Required(ATTR_CURRENT): cv.positive_int},
+        {vol.Required(ATTR_CURRENT): cv.string},
         "async_set_charging_current",
     )
     platform.async_register_entity_service(
