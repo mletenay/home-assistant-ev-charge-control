@@ -1,4 +1,4 @@
-"""Electric Vehicle Charge Control switch."""
+"""Phoenix Contact's Electric Vehicle Charge Control switch."""
 import voluptuous as vol
 
 from homeassistant.components.sensor import PLATFORM_SCHEMA
@@ -8,7 +8,7 @@ from homeassistant.helpers.entity import ToggleEntity
 
 from .ev_charge_control import EvChargeControl
 
-DOMAIN = "ev_charge_control"
+DOMAIN = "phoenix_contact"
 
 SERVICE_SET_CHARGING_CURRENT = "set_charging_current"
 SERVICE_ENABLE_CHARGING = "enable_charging"

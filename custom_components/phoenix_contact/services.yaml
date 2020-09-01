@@ -1,10 +1,10 @@
-# Describes the format for available ev_charge_control services
+# Describes the format for available phoenix_contact services
 set_charging_current:
   description: Sets charging current.
   fields:
     entity_id:
       description: Name(s) of the entities to set
-      example: "ev_charge_control.id"
+      example: "phoenix_contact.id"
     current:
       description: Charging current in Amperes
       example: "10"
@@ -14,11 +14,11 @@ enable_charging:
   fields:
     entity_id:
       description: Name(s) of the entities to set
-      example: "ev_charge_control.id"
+      example: "phoenix_contact.id"
 
 disable_charging:
   description: Disable charging.
   fields:
     entity_id:
       description: Name(s) of the entities to set
-      example: "ev_charge_control.id"
+      example: "phoenix_contact.id"
