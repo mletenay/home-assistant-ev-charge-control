@@ -20,6 +20,7 @@ class EvChargeControlStatus:
     """Electric Vehicle Charge Control status class"""
 
     def __init__(self):
+        self.serial = None
         self.status = None
         self.current = None
         self.current_options = []
@@ -27,7 +28,7 @@ class EvChargeControlStatus:
         self.charging_enabled = False
 
 
-class _StatusParser(HTMLParser):
+class _StatusPageParser(HTMLParser):
     def __init__(self, evse):
         super().__init__()
         self._evse = evse
@@ -58,7 +59,7 @@ class _StatusParser(HTMLParser):
         pass
 
 
-class _ConfigParser(HTMLParser):
+class _ConfigPageParser(HTMLParser):
     def __init__(self, evse):
         super().__init__()
         self._evse = evse
@@ -76,6 +77,22 @@ class _ConfigParser(HTMLParser):
             if self._select_name == "remoteCharging":
                 if "selected" in atrrs:
                     self._evse.charging_enabled = atrrs.get("value") == "1"
+
+    def error(self, message):
+        pass
+
+
+class _NetworkPageParser(HTMLParser):
+    def __init__(self, evse):
+        super().__init__()
+        self._evse = evse
+        self._select_name = None
+
+    def handle_starttag(self, tag, attrs):
+        if tag == "input":
+            atrrs = dict(attrs)
+            if atrrs.get("name") == "serial":
+                self._evse.serial = atrrs.get("value")
 
     def error(self, message):
         pass
@@ -101,12 +118,16 @@ class EvChargeControl(object):
 
     async def refresh(self):
         """Get the latest data from the source and updates the state."""
+        data = await self._get("/network.html")
+        parser = _NetworkPageParser(self.status)
+        parser.feed(data)
+        parser.close()
         data = await self._get("/charge.html")
-        parser = _StatusParser(self.status)
+        parser = _StatusPageParser(self.status)
         parser.feed(data)
         parser.close()
         data = await self._get("/config.html")
-        parser = _ConfigParser(self.status)
+        parser = _ConfigPageParser(self.status)
         parser.feed(data)
         parser.close()
 

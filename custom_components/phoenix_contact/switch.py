@@ -22,8 +22,7 @@ async def async_setup_platform(hass, config, async_add_entities, discovery_info=
     """Expose Electric Vehicle charge control via statemachine and services."""
     evse = EvChargeControl(config[CONF_IP_ADDRESS])
     await evse.refresh()
-    uid = DOMAIN + "." + config[CONF_IP_ADDRESS]
-    async_add_entities([EvChargeControlEntity(uid, evse)])
+    async_add_entities([EvChargeControlEntity(evse)])
 
     platform = entity_platform.current_platform.get()
     platform.async_register_entity_service(
@@ -44,11 +43,11 @@ async def async_setup_platform(hass, config, async_add_entities, discovery_info=
 class EvChargeControlEntity(ToggleEntity):
     """Representation of an Electric Vehicle Charge Control device."""
 
-    def __init__(self, uid, evse):
+    def __init__(self, evse):
         """Initialize the sensor."""
-        self._uid = uid
         self._evse = evse
         self._is_on = evse.status.charging_enabled
+        self._uid = DOMAIN + "-" + evse.status.serial
 
     async def async_set_charging_current(self, current: str):
         """Set the charging current."""
