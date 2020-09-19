@@ -1,10 +1,12 @@
+[![hacs_badge](https://img.shields.io/badge/HACS-Default-orange.svg?style=for-the-badge)](https://github.com/custom-components/hacs)
+
 # home-assistant-ev-charge-control
 Electric Vehicle Charge Control (switch+services) component can enable/disable charging process and retrieve charging status data.
-It works over http interface of _ESL's Walli LIGHT_ charging box, resp. any electric vehicle charging station built on top of _Phoenix Contact's EV Charge Control device (EM-CP-PP-ETH).
+It works over http interface of _ESL's Walli LIGHT_ charging box, resp. any electric vehicle charging station built on top of _Phoenix Contact's EV Charge Control_ device (_EM-CP-PP-ETH_).
 
-The EV Charge Control will be presented as `EV Charge Control` switch in [Home Assistant](https://home-assistant.io/).
-The switch entity has its state values - `Vehicle status`, `Charging duration`, `Charging current`.
-It also exposes `set_charging_current`, `enable_charging` and `disable_charging` services.
+The EV Charge Control will be presented as `EV Charge Control` switch in [Home Assistant](https://home-assistant.io/).  
+The `switch.ev_charge_control` entity has its state values - `Vehicle status`, `Charging duration`, `Charging current`.  
+It also exposes `phoenix_contact.set_charging_current`, `phoenix_contact.enable_charging` and `phoenix_contact.disable_charging` services.
 
 ## Requirements
 
@@ -73,5 +75,5 @@ To test whether the EV Charge control interface properly works, just execute the
 
 ## References
 
-[ESL's Walli LIGHT](https://esl-emobility.com/de/walli-light-elektroauto-ladestation-wallbox-ladekabel-typ-2-11kw-16a-3-phasig.html)
+[ESL's Walli LIGHT](https://esl-emobility.com/de/walli-light-elektroauto-ladestation-wallbox-ladekabel-typ-2-11kw-16a-3-phasig.html)  
 [Phoenix Contact EV Charge Control](https://www.phoenixcontact.com/online/portal/us/?uri=pxc-oc-itemdetail:pid=2902802)
