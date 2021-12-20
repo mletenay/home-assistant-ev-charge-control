@@ -1,21 +1,26 @@
 """Support for Electric Vehicle Charge Control (EM-CP-PP-ETH device by Phoenix Contact)"""
+import logging
 
-import voluptuous as vol
-
-
-from .const import DOMAIN, KEY_DEVICE_INFO, KEY_EVSE, PLATFORMS
+from .const import (
+    DOMAIN,
+    KEY_COORDINATOR,
+    KEY_DEVICE_INFO,
+    KEY_EVSE,
+    PLATFORMS,
+    SCAN_INTERVAL,
+)
 from .ev_charge_control import EvChargeControl
-from .switch import EvChargeControlEntity
-from .select import EvChargeCurrentEntity
 
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import CONF_HOST
 from homeassistant.core import HomeAssistant
 from homeassistant.exceptions import ConfigEntryNotReady
 from homeassistant.helpers.entity import DeviceInfo
-from homeassistant.helpers.update_coordinator import DataUpdateCoordinator, UpdateFailed
+from homeassistant.helpers.update_coordinator import DataUpdateCoordinator
 from homeassistant.components.sensor import PLATFORM_SCHEMA
-from homeassistant.helpers import config_validation as cv
+
+_LOGGER = logging.getLogger(__name__)
+
 
 async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     """Set up the Phoenix Contact components from a config entry."""
@@ -24,6 +29,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
 
     # Connect to vehicle charger
     try:
+        _LOGGER.debug("Connecting to EVSE at %s", host)
         evse = EvChargeControl(host)
         await evse.refresh()
     except Exception as err:
@@ -36,8 +42,27 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
         manufacturer="Phoenix Contact",
     )
 
+    async def async_update_data():
+        """Fetch data from the inverter."""
+        await evse.refresh()
+        return evse.status
+
+    # Create update coordinator
+    coordinator = DataUpdateCoordinator(
+        hass,
+        _LOGGER,
+        name=entry.title,
+        update_method=async_update_data,
+        # Polling interval. Will only be polled if there are subscribers.
+        update_interval=SCAN_INTERVAL,
+    )
+
+    # Fetch initial data so we have data when entities subscribe
+    await coordinator.async_config_entry_first_refresh()
+
     hass.data[DOMAIN][entry.entry_id] = {
         KEY_EVSE: evse,
+        KEY_COORDINATOR: coordinator,
         KEY_DEVICE_INFO: device_info,
     }
 

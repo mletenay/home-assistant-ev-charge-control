@@ -27,6 +27,10 @@ class EvChargeControlStatus:
         self.duration = None
         self.charging_enabled = False
 
+    def status_name(self):
+        """Answer verbose status of the vehicle charging process"""
+        return STATUS_MAP.get(self.status, "???")
+
 
 class _StatusPageParser(HTMLParser):
     def __init__(self, evse):
