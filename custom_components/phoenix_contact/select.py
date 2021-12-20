@@ -4,7 +4,6 @@ from __future__ import annotations
 from .const import DOMAIN, KEY_COORDINATOR, KEY_EVSE, KEY_DEVICE_INFO
 from .ev_charge_control import EvChargeControl
 
-from homeassistant.const import ELECTRIC_CURRENT_AMPERE
 from homeassistant.components.select import SelectEntity
 from homeassistant.helpers.entity import DeviceInfo
 from homeassistant.helpers.update_coordinator import (
@@ -39,7 +38,6 @@ class EvChargeCurrentEntity(CoordinatorEntity, SelectEntity):
         self._attr_icon = "mdi:car-electric"
         self._attr_unique_id = f"{DOMAIN}-{evse.status.serial}"
         self._attr_device_info = device_info
-        self._attr_unit_of_measurement = ELECTRIC_CURRENT_AMPERE
         self._evse = evse
 
     @property
