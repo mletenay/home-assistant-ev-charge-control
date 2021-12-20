@@ -48,11 +48,13 @@ class EvChargeControlEntity(CoordinatorEntity, ToggleEntity):
 
     async def async_turn_on(self, **kwargs: Any) -> None:
         """Enable vehicle charging"""
-        self._attr_is_on = await self._evse.set_charging_enabled(True)
+        await self._evse.set_charging_enabled(True)
+        self.async_write_ha_state()
 
     async def async_turn_off(self, **kwargs: Any) -> None:
         """Disable vehicle charging"""
-        self._attr_is_on = await self._evse.set_charging_enabled(False)
+        await self._evse.set_charging_enabled(False)
+        self.async_write_ha_state()
 
     @property
     def extra_state_attributes(self):

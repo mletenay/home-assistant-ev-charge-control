@@ -52,3 +52,4 @@ class EvChargeCurrentEntity(CoordinatorEntity, SelectEntity):
 
     async def async_select_option(self, option: str) -> None:
         await self._evse.set_charging_current(option)
+        self.async_write_ha_state()
