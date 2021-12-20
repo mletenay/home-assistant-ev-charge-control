@@ -1,5 +1,6 @@
 """Phoenix Contact's Electric Vehicle Charge Control switch."""
 from __future__ import annotations
+from typing import Any
 
 from .const import DOMAIN, KEY_COORDINATOR, KEY_EVSE, KEY_DEVICE_INFO
 from .ev_charge_control import EvChargeControl
@@ -45,11 +46,11 @@ class EvChargeControlEntity(CoordinatorEntity, ToggleEntity):
         """Return True if entity is on."""
         return self.coordinator.data.charging_enabled
 
-    async def async_turn_on(self, **kwargs):
+    async def async_turn_on(self, **kwargs: Any) -> None:
         """Enable vehicle charging"""
         self._attr_is_on = await self._evse.set_charging_enabled(True)
 
-    async def async_turn_off(self, **kwargs):
+    async def async_turn_off(self, **kwargs: Any) -> None:
         """Disable vehicle charging"""
         self._attr_is_on = await self._evse.set_charging_enabled(False)
 

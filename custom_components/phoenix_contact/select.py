@@ -45,12 +45,12 @@ class EvChargeCurrentEntity(CoordinatorEntity, SelectEntity):
     @property
     def options(self) -> list[str]:
         """Return a set of selectable options."""
-        return self.coordinator.data.current_options
+        return list(map(lambda x: x + " A", self.coordinator.data.current_options))
 
     @property
     def current_option(self) -> str | None:
         """Return the selected entity option to represent the entity state."""
-        return self.coordinator.data.current
+        return self.coordinator.data.current + " A"
 
     async def async_select_option(self, option: str) -> None:
         await self._evse.set_charging_current(option)
