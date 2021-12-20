@@ -1,5 +1,4 @@
-{
-  "domain": "phoenix_contact",
+{  "domain": "phoenix_contact",
   "name": "Electric Vehicle Charge Control",
   "documentation": "https://github.com/mletenay/home-assistant-ev-charge-control",
   "issue_tracker": "https://github.com/mletenay/home-assistant-ev-charge-control/issues",
@@ -8,6 +7,7 @@
     "@mletenay"
   ],
   "requirements": [],
+  "config_flow": true,
   "version": "1.0.0",
   "iot_class": "local_polling"
 }

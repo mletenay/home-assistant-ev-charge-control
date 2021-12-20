@@ -1,29 +1,33 @@
 """Phoenix Contact's Electric Vehicle Charge Control switch."""
-from homeassistant.helpers.entity import ToggleEntity
 
-from homeassistant.const import CONF_IP_ADDRESS
-from .const import DOMAIN
+from .const import DOMAIN, KEY_EVSE, KEY_DEVICE_INFO
 from .ev_charge_control import EvChargeControl
 
+from homeassistant.helpers.entity import ToggleEntity
+from homeassistant.helpers.entity import DeviceInfo
 
-async def async_setup_platform(hass, config, async_add_entities, discovery_info=None):
-    """Expose Electric Vehicle charge control via statemachine and services."""
-    evse = EvChargeControl(config[CONF_IP_ADDRESS])
-    await evse.refresh()
-    async_add_entities([EvChargeControlEntity(evse)])
+
+async def async_setup_entry(hass, config_entry, async_add_entities):
+    """Set up the vehicle charger switch entities from a config entry."""
+    evse = hass.data[DOMAIN][config_entry.entry_id][KEY_EVSE]
+    device_info = hass.data[DOMAIN][config_entry.entry_id][KEY_DEVICE_INFO]
+
+    async_add_entities([EvChargeControlEntity(device_info, evse)])
+
     return True
 
 
 class EvChargeControlEntity(ToggleEntity):
     """Representation of an Electric Vehicle Charge Control device."""
 
-    def __init__(self, evse):
-        """Initialize the sensor."""
-        self._evse = evse
+    def __init__(self, device_info: DeviceInfo, evse: EvChargeControl) -> None:
+        """Initialize the entity."""
         self._attr_name = "EV Charge Control"
         self._attr_icon = "mdi:car-electric"
         self._attr_is_on = evse.status.charging_enabled
         self._attr_unique_id = f"{DOMAIN}-{evse.status.serial}"
+        self._attr_device_info = device_info
+        self._evse = evse
 
     async def async_turn_on(self, **kwargs):
         """Enable vehicle charging"""
@@ -46,3 +50,4 @@ class EvChargeControlEntity(ToggleEntity):
     async def async_update(self):
         """Reload state of the charger"""
         await self._evse.refresh()
+        self._attr_is_on = self._evse.status.charging_enabled

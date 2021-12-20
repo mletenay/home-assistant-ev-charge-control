@@ -102,14 +102,14 @@ class EvChargeControl(object):
     """Electric Vehicle Charge Control management class"""
 
     def __init__(self, ip_address):
-        self._url_root = "http://" + ip_address
+        self.url_root = "http://" + ip_address
         self.status = EvChargeControlStatus()
 
     async def _get(self, url):
         async with aiohttp.ClientSession() as session:
             try:
                 async with session.get(
-                    self._url_root + url, allow_redirects=False
+                    self.url_root + url, allow_redirects=False
                 ) as response:
                     return await response.text()
             except ServerDisconnectedError as ex:
