@@ -1,6 +1,6 @@
 {
   "name": "Electric Vehicle Charge Control",
   "country": "SK",
-  "domains": ["phoenix_contact"],
+  "domains": ["switch", "select", "sensor"],
   "homeassistant": "2021.12.0"
 }
