@@ -7,14 +7,14 @@
         "error": {
             "connection_error": "Failed to connect"
         },
-        "flow_title": "Phoenix Contact Vehicle Charger",
+        "flow_title": "Phoenix Contact Electric Vehicle Charger",
         "step": {
             "user": {
                 "data": {
                     "host": "IP Address"
                 },
                 "description": "Connect to vehicle charger",
-                "title": "Phoenix Contact Vehicle Charger"
+                "title": "Phoenix Contact Electric Vehicle Charger"
             }
         }
     }

@@ -27,7 +27,7 @@ async def async_setup_entry(hass, config_entry, async_add_entities):
 
 
 class EvChargeStatusEntity(CoordinatorEntity, SensorEntity):
-    """Representation of an Electric Vehicle Charge Control device."""
+    """Representation of an Electric Vehicle Charger status device."""
 
     def __init__(
         self,
@@ -37,7 +37,7 @@ class EvChargeStatusEntity(CoordinatorEntity, SensorEntity):
     ) -> None:
         """Initialize the entity."""
         super().__init__(coordinator)
-        self._attr_name = "EV Charge Status"
+        self._attr_name = "EV Charging Status"
         self._attr_icon = "mdi:car-electric"
         self._attr_unique_id = f"{DOMAIN}-status-{evse.status.serial}"
         self._attr_device_info = device_info
@@ -50,7 +50,7 @@ class EvChargeStatusEntity(CoordinatorEntity, SensorEntity):
 
 
 class EvChargeDurationEntity(CoordinatorEntity, SensorEntity):
-    """Representation of an Electric Vehicle Charge Control device."""
+    """Representation of an Electric Vehicle Charger charge duration device."""
 
     def __init__(
         self,
@@ -60,7 +60,7 @@ class EvChargeDurationEntity(CoordinatorEntity, SensorEntity):
     ) -> None:
         """Initialize the entity."""
         super().__init__(coordinator)
-        self._attr_name = "EV Charge Duration"
+        self._attr_name = "EV Charging Duration"
         self._attr_icon = "mdi:car-electric"
         self._attr_unique_id = f"{DOMAIN}-duration-{evse.status.serial}"
         self._attr_device_info = device_info

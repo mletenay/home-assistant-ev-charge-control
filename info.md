@@ -1,6 +1,6 @@
 ## Electric Vehicle Charge Control Component for Home Assistant.
 
-Electric Vehicle Charge Control (switch+services) component can enable/disable charging process and retrieve charging status data.
+Electric Vehicle Charge Control component can enable/disable charging process, set chargin current and retrieve charging status data.
 It works over http interface of _ESL's Walli LIGHT_ charging box, resp. any electric vehicle charging station built on top of _Phoenix Contact's EV Charge Control_ device (_EM-CP-PP-ETH_).
 
 ### Example

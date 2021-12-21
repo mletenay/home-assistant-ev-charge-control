@@ -1,5 +1,5 @@
 {  "domain": "phoenix_contact",
-  "name": "Electric Vehicle Charge Control",
+  "name": "Electric Vehicle Charger",
   "documentation": "https://github.com/mletenay/home-assistant-ev-charge-control",
   "issue_tracker": "https://github.com/mletenay/home-assistant-ev-charge-control/issues",
   "dependencies": [],

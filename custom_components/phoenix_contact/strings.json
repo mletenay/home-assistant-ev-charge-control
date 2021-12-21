@@ -2,7 +2,7 @@
   "config": {
     "step": {
       "user": {
-        "title": "Phoenix Contact Vehicle Charger",
+        "title": "Phoenix Contact Electric Vehicle Charger",
         "description": "Connect to vehicle charger",
         "data": {
           "host": "[%key:common::config_flow::data::ip%]"

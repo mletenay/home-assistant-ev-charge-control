@@ -7,7 +7,7 @@ DOMAIN = "phoenix_contact"
 
 PLATFORMS = [Platform.NUMBER, Platform.SELECT, Platform.SENSOR]
 
-DEFAULT_NAME = "EV Charger"
+DEFAULT_NAME = "Electric Vehicle Charger"
 SCAN_INTERVAL = timedelta(seconds=30)
 
 KEY_COORDINATOR = "coordinator"

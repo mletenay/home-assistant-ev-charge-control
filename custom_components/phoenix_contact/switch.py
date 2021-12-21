@@ -23,7 +23,7 @@ async def async_setup_entry(hass, config_entry, async_add_entities):
 
 
 class EvChargeControlEntity(CoordinatorEntity, ToggleEntity):
-    """Representation of an Electric Vehicle Charge Control device."""
+    """Representation of an Electric Vehicle Charger on-off switch."""
 
     def __init__(
         self,
