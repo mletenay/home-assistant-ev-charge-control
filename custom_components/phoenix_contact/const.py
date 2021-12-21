@@ -5,7 +5,7 @@ from homeassistant.const import Platform
 
 DOMAIN = "phoenix_contact"
 
-PLATFORMS = [Platform.NUMBER, Platform.SELECT, Platform.SENSOR]
+PLATFORMS = [Platform.SWITCH, Platform.SELECT, Platform.SENSOR]
 
 DEFAULT_NAME = "Electric Vehicle Charger"
 SCAN_INTERVAL = timedelta(seconds=30)
