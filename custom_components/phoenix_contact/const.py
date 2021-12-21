@@ -1,13 +1,11 @@
 """Constants for the Goodwe component."""
 from datetime import timedelta
 
-from homeassistant.components.select import DOMAIN as SELECT_DOMAIN
-from homeassistant.components.sensor import DOMAIN as SENSOR_DOMAIN
-from homeassistant.components.switch import DOMAIN as SWITCH_DOMAIN
+from homeassistant.const import Platform
 
 DOMAIN = "phoenix_contact"
 
-PLATFORMS = [SELECT_DOMAIN, SENSOR_DOMAIN, SWITCH_DOMAIN]
+PLATFORMS = [Platform.NUMBER, Platform.SELECT, Platform.SENSOR]
 
 DEFAULT_NAME = "EV Charger"
 SCAN_INTERVAL = timedelta(seconds=30)

@@ -20,8 +20,6 @@ async def async_setup_entry(hass, config_entry, async_add_entities):
 
     async_add_entities([EvChargeCurrentEntity(coordinator, device_info, evse)])
 
-    return True
-
 
 class EvChargeCurrentEntity(CoordinatorEntity, SelectEntity):
     """Representation of an Electric Vehicle Charge Control device."""
