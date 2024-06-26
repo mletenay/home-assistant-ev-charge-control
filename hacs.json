@@ -1,6 +1,4 @@
 {
   "name": "Electric Vehicle Charge Control",
-  "country": "SK",
-  "domains": ["switch", "select", "sensor"],
   "homeassistant": "2022.12.0"
 }
